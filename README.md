@@ -8,12 +8,11 @@
 
 # Running
 
-`python3 main.py "Team Name"`
+`python main.py "Team Name"`
 
 # TODO:
 
-- Detect wins and draws
-- Protect network protocol from user-entered pipes
-- Create second column when lots of team selection buttons
 - Don't let first move happen until both teams have started.
+- Create second column when lots of team selection buttons
+- Protect network protocol from user-entered pipes
 - Keyboard grid selection and space/click confirmation
