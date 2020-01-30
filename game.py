@@ -87,7 +87,7 @@ class Game:
             if self.game_state == STATE_PREPARING:
                 self.teams.check_click(event.pos[0], event.pos[1])
                 self.start_game_button.check_click(event.pos[0], event.pos[1])
-            else:
+            elif self.game_state == STATE_OUR_TURN:
                 self.board.make_move_click(event.pos[0], event.pos[1])
 
         elif event.type == pygame.USEREVENT:
@@ -106,6 +106,7 @@ class Game:
                 self.messages_to_send.put('%s|%s|%d|%d' % (self.our_team, ACTION_MOVE, event.row, event.col))
                 # Update the board, check for a winner, and change turns.
                 self.handle_move(self.our_team, event.row, event.col)
+                self.messages_to_send.put('%s|%s|%s' % (self.our_team, ACTION_REFRESH, self.board.state_of_all_cells()))
 
             elif event.action == ACTION_SELECT_TEAM:
                 self.selected_their_team = event.team

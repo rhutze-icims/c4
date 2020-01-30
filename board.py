@@ -161,16 +161,20 @@ class Board:
             for col in range(self.grid_cols):
                 self.grid[row][col].clear()
 
-    def __str__(self):
+    def state_of_all_cells(self, row_separator='-', col_separator=''):
         output = ""
         for row in range(self.grid_rows):
-            output += "\n"
+            if len(output) > 0:
+                output += row_separator
             for col in range(self.grid_cols):
                 if self.grid[row][col].red:
-                    output += " R "
+                    output += col_separator + "R" + col_separator
                 elif self.grid[row][col].black:
-                    output += " B "
+                    output += col_separator + "B" + col_separator
                 else:
-                    output += " . "
+                    output += col_separator + "." + col_separator
         return output
+
+    def __str__(self):
+        return self.state_of_all_cells('\n', ' ')
 

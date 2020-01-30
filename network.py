@@ -1,9 +1,10 @@
+import platform
 import pygame
 import queue
 import socket
 import struct
 from time import time
-from config import ACTION_FIND_ME, BIND_IP, MULTICAST_IP, MULTICAST_PORT, STATE_PREPARING
+from config import *
 from threading import Lock, Thread
 
 
@@ -28,7 +29,8 @@ class Network:
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
         # Not valid on Windows
-        # self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+        if not platform.system() == 'Windows':
+            self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 
         # Not valid on Mac.
         # self.sock.setsockopt(socket.IPPROTO_IP, socket.IP_MULTICAST_LOOP, 0)
@@ -62,13 +64,23 @@ class Network:
         try:
             received, address = self.sock.recvfrom(1024)
             message_parts = received.decode("utf-8").split('|')
+
             if received.startswith(b'ACK-') and message_parts[2] == self.team_name:
                 self.process_acknowledgement(message_parts)
+
+            elif received.find(ACTION_REFRESH.encode('utf-8')) > 0 and message_parts[1] == self.team_name:
+                print("Received: [%s] from [%s]" % (received, address))
+                event = pygame.event.Event(pygame.USEREVENT, dict(
+                    team=message_parts[1], action=message_parts[2],
+                    cells=message_parts[3]))
+                pygame.event.post(event)
+
             elif not message_parts[1] == self.team_name:
                 if len(message_parts) > 4:
                     print("Received: [%s] from [%s]" % (received, address))
 
-                    if received.find(ACTION_FIND_ME.encode('utf-8')) < 0:
+                    if received.find(ACTION_FIND_ME.encode('utf-8')) < 0 \
+                            and received.find(ACTION_REFRESH.encode('utf-8')) < 0:
                         self.acknowledge(received)
 
                     event = pygame.event.Event(pygame.USEREVENT, dict(
@@ -103,7 +115,7 @@ class Network:
                     message = "%d|%s" % (self.message_counter, outbound_message)
 
                     with self.send_lock:
-                        if message.find(ACTION_FIND_ME) < 0:
+                        if message.find(ACTION_FIND_ME) < 0 and message.find(ACTION_REFRESH) < 0:
                             # No need to acknowledge presence beacons.
                             self.unacked_message = message
                             self.unacked_last_attempt = time()
