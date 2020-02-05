@@ -23,6 +23,20 @@ class TestBoard(unittest.TestCase):
         self.board.grid[5][1].black = True
         self.assertEqual('black', self.board.is_win())
 
+    def test_other_color_interruption_is_not_win(self):
+        self.board.grid[2][1].black = True
+        self.board.grid[3][1].red = True
+        self.board.grid[4][1].black = True
+        self.board.grid[5][1].black = True
+        self.assertIsNone(self.board.is_win())
+
+    def test_empty_interruption_is_not_win(self):
+        self.board.grid[2][1].black = True
+        self.board.grid[3][1].black = False
+        self.board.grid[4][1].black = True
+        self.board.grid[5][1].black = True
+        self.assertIsNone(self.board.is_win())
+
     def test_is_horizontal_win(self):
         self.board.grid[2][1].black = True
         self.board.grid[2][2].black = True
@@ -49,12 +63,21 @@ class TestBoard(unittest.TestCase):
         print(self.board)
         self.assertEqual('red', self.board.is_win())
 
-    def test_from_right_diagonal(self):
+    def test_from_centered_right_diagonal(self):
+        self.board.grid[5][3].black = True
+        self.board.grid[4][4].black = True
+        self.board.grid[3][5].black = True
+        self.board.grid[2][6].black = True
+        print('From Center Right Diagonal: ')
+        print(self.board)
+        self.assertEqual('black', self.board.is_win())
+
+    def test_from_top_right_diagonal(self):
         self.board.grid[0][5].black = True
         self.board.grid[1][4].black = True
         self.board.grid[2][3].black = True
         self.board.grid[3][2].black = True
-        print('From Right Diagonal: ')
+        print('From Top Right Diagonal: ')
         print(self.board)
         self.assertEqual('black', self.board.is_win())
 

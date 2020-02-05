@@ -63,29 +63,19 @@ class Board:
             if not winner is None:
                 return winner
 
-        # From left diagonal starting from each row
+        # From left diagonal starting from each row and col
         for row_offset in range(self.grid_rows):
-            winner = self.is_winner_from_diagonal(row_offset, 0, 'left')
-            if not winner is None:
-                return winner
+            for col_offset in range(self.grid_cols):
+                winner = self.is_winner_from_diagonal(row_offset, col_offset, 'left')
+                if not winner is None:
+                    return winner
 
-        # From left diagonal starting from each column
-        for col_offset in range(self.grid_cols):
-            winner = self.is_winner_from_diagonal(0, col_offset, 'left')
-            if not winner is None:
-                return winner
-
-        # From right diagonal starting from each row
+        # From right diagonal starting from each row and col
         for row_offset in range(self.grid_rows):
-            winner = self.is_winner_from_diagonal(row_offset, 0, 'right')
-            if not winner is None:
-                return winner
-
-        # From right diagonal starting from each column
-        for col_offset in range(self.grid_cols):
-            winner = self.is_winner_from_diagonal(0, col_offset, 'right')
-            if not winner is None:
-                return winner
+            for col_offset in range(self.grid_cols):
+                winner = self.is_winner_from_diagonal(row_offset, col_offset, 'right')
+                if not winner is None:
+                    return winner
 
         return None
 
@@ -99,6 +89,9 @@ class Board:
             elif self.grid[row][col].black:
                 red_tally = 0
                 black_tally = black_tally + 1
+            else:
+                red_tally = 0
+                black_tally = 0
 
             if red_tally >= 4:
                 return 'red'
@@ -117,6 +110,9 @@ class Board:
             elif self.grid[row][col].black:
                 red_tally = 0
                 black_tally = black_tally + 1
+            else:
+                red_tally = 0
+                black_tally = 0
 
             if red_tally >= 4:
                 return 'red'
@@ -126,9 +122,6 @@ class Board:
         return None
 
     def is_winner_from_diagonal(self, starting_row, starting_col, from_direction):
-        if starting_row > 0 and starting_col > 0:
-            raise Exception('Only one of the diagonal offsets should be set at a time.')
-
         red_tally = 0
         black_tally = 0
         row = starting_row
@@ -138,9 +131,12 @@ class Board:
             if self.grid[row][col].red:
                 red_tally = red_tally + 1
                 black_tally = 0
-            if self.grid[row][col].black:
+            elif self.grid[row][col].black:
                 red_tally = 0
                 black_tally = black_tally + 1
+            else:
+                red_tally = 0
+                black_tally = 0
 
             if red_tally >= 4:
                 return 'red'

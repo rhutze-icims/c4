@@ -137,10 +137,13 @@ class Network:
 
     def process_acknowledgement(self, message_parts):
         with self.send_lock:
-            unacked_message_number = self.unacked_message[:str(self.unacked_message).index('|')]
-            if self.unacked_message \
-                    and message_parts[0] == ('ACK-%s' % unacked_message_number) \
-                    and message_parts[2] == self.team_name:
-                print('Received acknowledgement from %s for message #%s.' % (message_parts[1], unacked_message_number))
-                self.unacked_message = None
+            if self.unacked_message:
+                try:
+                    unacked_message_number = self.unacked_message[:str(self.unacked_message).index('|')]
+                    if len(message_parts) > 2 and message_parts[0] == ('ACK-%s' % unacked_message_number) \
+                            and message_parts[2] == self.team_name:
+                        print('Received acknowledgement from %s for message #%s.' % (message_parts[1], unacked_message_number))
+                        self.unacked_message = None
+                except ValueError:
+                    print("ERROR Acknowledgement message was [%s]" % self.unacked_message)
 

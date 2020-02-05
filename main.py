@@ -13,11 +13,15 @@ def handle_sigint(sig, frame):
         print('Received Ctrl+C. Shutting down...')
         shutdown_signal = True
 
+debug_mode = False
 
-if len(sys.argv) < 2 or len(sys.argv[1]) > 20:
+if len(sys.argv) == 2 and sys.argv[1] == 'debug':
+    debug_mode = True
+elif len(sys.argv) < 2 or len(sys.argv[1]) > 20:
     print("\nProvide your team name of up to 20 characters when starting the application." +
           "\nExample: python main.py \"My Team Name\"\n")
     sys.exit(1)
+
 our_team = sys.argv[1]
 who_gets_to_be_red_number = randint(0, 1000)
 
@@ -32,7 +36,7 @@ signal.signal(signal.SIGINT, handle_sigint)
 network = Network(our_team, who_gets_to_be_red_number)
 networking_thread = network.start()
 
-game = Game(screen, network.get_messages_to_send(), our_team, who_gets_to_be_red_number)
+game = Game(screen, network.get_messages_to_send(), our_team, who_gets_to_be_red_number, debug_mode)
 
 while not shutdown_signal:
 
