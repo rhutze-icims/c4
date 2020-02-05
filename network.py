@@ -80,13 +80,15 @@ class Network:
                     print("Received: [%s] from [%s]" % (received, address))
 
                     if received.find(ACTION_FIND_ME.encode('utf-8')) < 0 \
-                            and received.find(ACTION_REFRESH.encode('utf-8')) < 0:
+                            and received.find(ACTION_REFRESH.encode('utf-8')) < 0\
+                            and not self.game_state == STATE_PREPARING:
                         self.acknowledge(received)
 
                     event = pygame.event.Event(pygame.USEREVENT, dict(
                         team=message_parts[1], action=message_parts[2],
                         row=int(message_parts[3]), col=int(message_parts[4])))
                     pygame.event.post(event)
+
         except socket.timeout:
             pass
         finally:
