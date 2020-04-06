@@ -12,9 +12,14 @@ class Board:
 
         self.board_x = x
         self.board_y = y
-        self.grid_rows = grid_rows
-        self.grid_cols = grid_cols
-        self.grid = [[Cell(row, col, images) for col in range(grid_cols)] for row in range(grid_rows)]
+
+        #self.grid_rows = grid_rows
+        self.grid_rows = 1
+
+        #self.grid_cols = grid_cols
+        self.grid_cols = 1
+
+        self.grid = [ [ Cell(0, 0, images) ] ]
 
         for row in range(self.grid_rows):
             for col in range(self.grid_cols):
