@@ -4,6 +4,7 @@ from pygame.constants import MOUSEBUTTONDOWN, MOUSEBUTTONUP, QUIT
 pygame.init()
 width, height = 640, 480
 screen = pygame.display.set_mode((width, height))
+clock = pygame.time.Clock()
 
 ball = pygame.image.load("ball.gif")
 ballrect = ball.get_rect()
@@ -28,3 +29,4 @@ while True:
 
     screen.blit(ball, ballrect)
     pygame.display.flip()
+    clock.tick(60)
