@@ -12,8 +12,13 @@
 
 The application listens for other copies to startup on the same
 network. This can be both from another computer or even a second 
-copy on the same computer. Click on the team name that appears and
-click start to begin taking turns.
+copy on the same computer. 
+
+> If a Firewall popup appears, asking if this application should be allowed to talk to other computers on the network, check the networks, and click Allow.
+
+Click on the team name that appears and click start to begin taking turns.
+
+If you are experimenting with the project and only have one copy running, you can use the Debug Mode that is described in the next section.
 
 # Developing in Debug Mode
 
@@ -21,9 +26,3 @@ click start to begin taking turns.
 
 This mode allows placing of pieces on the board without 
 having to start a game with another copy of the application.
-
-# TODO:
-
-- Create second column when lots of team selection buttons
-- Protect network protocol from user-entered pipes
-- Keyboard grid selection and space/click confirmation
