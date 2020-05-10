@@ -1,0 +1,46 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: C4",
+      "type": "python",
+      "request": "launch",
+      "program": "main.py",
+      "console": "integratedTerminal",
+      "args": ["debug"]
+    },
+    {
+      "name": "Python: About Pygame",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/about-pygame",
+      "program": "pygame_main.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: About Classes",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/about-classes",
+      "program": "classes_main.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: About Classes",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/about-classes",
+      "program": "classes_main.py",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Python: Fixer-upper",
+      "type": "python",
+      "request": "launch",
+      "cwd": "${workspaceFolder}/fixer-upper",
+      "program": "main.py",
+      "console": "integratedTerminal",
+      "args": ["debug"]
+    }
+  ]
+}

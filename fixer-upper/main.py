@@ -13,7 +13,7 @@ def handle_sigint(sig, frame):
         print('Received Ctrl+C. Shutting down...')
         shutdown_signal = True
 
-debug_mode = False
+debug_mode = True
 
 if len(sys.argv) == 2 and sys.argv[1] == 'debug':
     debug_mode = True
