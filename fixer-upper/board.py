@@ -85,69 +85,22 @@ class Board:
         return None
 
     def is_winning_row(self, row):
-        red_tally = 0
-        black_tally = 0
         for col in range(self.grid_cols):
-            if self.grid[row][col].red:
-                red_tally = red_tally + 1
-                black_tally = 0
-            elif self.grid[row][col].black:
-                red_tally = 0
-                black_tally = black_tally + 1
-            else:
-                red_tally = 0
-                black_tally = 0
-
-            if red_tally >= 4:
-                return 'red'
-            elif black_tally >= 4:
-                return 'black'
+            pass
 
         return None
 
     def is_winning_col(self, col):
-        red_tally = 0
-        black_tally = 0
         for row in range(self.grid_rows):
-            if self.grid[row][col].red:
-                red_tally = red_tally + 1
-                black_tally = 0
-            elif self.grid[row][col].black:
-                red_tally = 0
-                black_tally = black_tally + 1
-            else:
-                red_tally = 0
-                black_tally = 0
-
-            if red_tally >= 4:
-                return 'red'
-            elif black_tally >= 4:
-                return 'black'
+            pass
 
         return None
 
     def is_winner_from_diagonal(self, starting_row, starting_col, from_direction):
-        red_tally = 0
-        black_tally = 0
         row = starting_row
         col = starting_col
 
         while 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
-            if self.grid[row][col].red:
-                red_tally = red_tally + 1
-                black_tally = 0
-            elif self.grid[row][col].black:
-                red_tally = 0
-                black_tally = black_tally + 1
-            else:
-                red_tally = 0
-                black_tally = 0
-
-            if red_tally >= 4:
-                return 'red'
-            elif black_tally >= 4:
-                return 'black'
-
             if from_direction == 'left':
                 row = row + 1
                 col = col + 1

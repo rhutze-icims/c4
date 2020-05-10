@@ -9,11 +9,13 @@ clock = pygame.time.Clock()
 ball = pygame.image.load("ball.gif")
 ballrect = ball.get_rect()
 speed = [1, 1]
+should_move = False
 
 while True:
     screen.fill((0, 0, 0))
-    ballrect = ballrect.move(speed)
 
+    if should_move is True:
+        ballrect = ballrect.move(speed)
     if ballrect.left < 0 or ballrect.right > width:
         speed[0] = -speed[0]
     if ballrect.top < 0 or ballrect.bottom > height:
@@ -22,8 +24,12 @@ while True:
     for event in pygame.event.get():
         if event.type == MOUSEBUTTONDOWN:
             print("Mouse down! vvvvv")
+            if ballrect.collidepoint(event.pos[0], event.pos[1]):
+                should_move = not should_move
+
         elif event.type == MOUSEBUTTONUP:
             print("Mouse wheel!  ^^^ ")
+
         elif event.type == QUIT:
             pygame.quit()
 
