@@ -14,7 +14,7 @@ should_move = False
 while True:
     screen.fill((0, 0, 0))
 
-    if should_move is True:
+    if should_move:
         ballrect = ballrect.move(speed)
     if ballrect.left < 0 or ballrect.right > width:
         speed[0] = -speed[0]
